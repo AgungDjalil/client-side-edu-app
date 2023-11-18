@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 export function NavLay() {
     return (
         <div className="bg-primaryBg h-screen">
-            <div className="flex justify-between mx-4">
+            <div className="flex justify-between mx-4 mb-8">
                 <div className="mt-10">
                     logo
                 </div>
