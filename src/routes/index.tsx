@@ -1,31 +1,41 @@
 import { createBrowserRouter } from "react-router-dom";
-import { NavLay } from "../layout/NavLay";
-import { HomePage } from "../pages/public/HomePage";
+import { PublicLay } from "../layout/PublicLay";
+import { LandingPage } from "../pages/public/LandingPage";
 import { HomePageAdmin } from "../pages/admin/HomePageAdmin";
 import { HomePageModerator } from "../pages/moderator/HomePageModerator";
 import { LoginPage } from "../pages/public/auth/LoginPage";
+import { PageShield } from "../components/PageShield";
+import { RegisterPage } from "../pages/public/auth/RegisterPage";
+import { HomePage } from "../pages/public/HomePage";
 
 export const router = createBrowserRouter([
     {
-        path: '/',
-        element: <NavLay />,
+        element: <PublicLay />,
         children: [
             {
-                path: '/',
+                path: '/home',
                 element: <HomePage />
-            },
-            {
-                path: '/login',
-                element: <LoginPage />
             }
         ]
     },
     {
+        path: '/',
+        element: <LandingPage />
+    },
+    {
+        path: '/login',
+        element: <LoginPage />
+    },
+    {
+        path: '/register',
+        element: <RegisterPage />
+    },
+    {
         path: '/admin',
-        element: <HomePageAdmin />
+        element: <PageShield children={<HomePageAdmin />} pageType="admin" />
     },
     {
         path: '/moderator',
-        element: <HomePageModerator />
+        element: <PageShield children={<HomePageModerator />} pageType="moderator" />
     }
 ])
