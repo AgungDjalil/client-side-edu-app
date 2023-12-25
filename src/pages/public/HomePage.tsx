@@ -7,21 +7,21 @@ import { NavLink } from "react-router-dom";
 export function HomePage() {
 
     return (
-        <div className="mx-4 mt-4">
-            <div className="lg:flex">
-                <CategoryComp />
+        <div className="mx-4 mt-4 lg:flex">
+            <CategoryComp />
 
+            <div>
                 <div className="flex flex-col w-full mt-4">
                     <CardComp />
                     <CardComp />
                     <CardComp />
                     <CardComp />
                 </div>
+                <PaginationComp />
             </div>
-            
-            <PaginationComp />
-            
+
             <LeaderBoardComp />
+            
         </div>
     )
 }

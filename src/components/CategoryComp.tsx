@@ -1,3 +1,6 @@
+import { NavLink } from "react-router-dom";
+import contohIcon from "../assets/category-svgrepo-com.svg"
+
 export function CategoryComp() {
 
     return (
@@ -26,8 +29,13 @@ export function CategoryComp() {
                 </select>
             </div>
 
-            <div className="lg:flex ">
-                <p>Mapel</p>
+            <div className="hidden lg:flex flex-col w-64 bg-white rounded-lg mt-4 me-2 p-2 text-center h-max">
+                <p className="mb-2 mx-3 font-bold text-slate-600 border-b-2 h-max border-slate-600">Mapel</p>
+                <NavLink to={"/"} className="my-2 p-2 rounded-xl hover:underline hover:bg-primaryBg">Semua Mapel</NavLink>
+                <NavLink to={"/"} className="my-2 p-2 rounded-xl hover:underline hover:bg-primaryBg">Matematika</NavLink>
+                <NavLink to={"/"} className="my-2 p-2 rounded-xl hover:underline hover:bg-primaryBg">IPA</NavLink>
+                <NavLink to={"/"} className="my-2 p-2 rounded-xl hover:underline hover:bg-primaryBg">Agama</NavLink>
+                <NavLink to={"/"} className="my-2 p-2 rounded-xl hover:underline hover:bg-primaryBg">B. Indonesia</NavLink>
             </div>
         </>
     )

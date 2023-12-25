@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
-import { CategoryComp } from "../../components/CategoryComp"
 import logo from "../../assets/Logo.png"
 import { useState } from "react";
+import { useAuthContext } from "../../context/AuthContext";
 
 export function LandingPage() {
     const [scrollPosition, setScrollPosition] = useState(0);

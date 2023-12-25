@@ -1,29 +1,25 @@
 import { useState } from "react"
 import { useAuthContext } from "../../../context/AuthContext"
-import { NavLink, Navigate, useNavigate } from "react-router-dom"
+import { NavLink, Navigate } from "react-router-dom"
 
 export function LoginPage() {
     const { signIn, accessToken, isReady, userRole } = useAuthContext()
     const [isRedirect, setIsRedirect] = useState(false)
-    const [username, setUsername] = useState('')
+    const [usernameOrEmail, setUsernameOrEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    if (!accessToken && !isReady && isRedirect && !userRole)
-        return <h1>Loading.....</h1>
+    if (!accessToken && !isReady && isRedirect && !userRole) return <h1>Loading.....</h1>
 
-    if (accessToken && isReady && isRedirect && userRole === 'admin')
-        return <Navigate to={'/admin'} />
+    if (accessToken && isReady && isRedirect && userRole === 'admin') return <Navigate to={'/admin'} />
 
-    if (accessToken && isReady && isRedirect && userRole === 'moderator')
-        return <Navigate to={'/moderator'} />
+    if (accessToken && isReady && isRedirect && userRole === 'moderator') return <Navigate to={'/moderator'} />
 
-    if (accessToken && isReady && isRedirect && userRole === 'user')
-        return <Navigate to={'/'} />
+    if (accessToken && isReady && isRedirect && userRole === 'user') return <Navigate to={'/'} />
 
-    function handleSubmit(event: any) {
+    async function handleSubmit(event: any) {
         event.preventDefault()
-        setIsRedirect(true)
-        signIn(username, password)
+        const isSuccess = await signIn(usernameOrEmail, password)
+        if(isSuccess) setIsRedirect(true)
     }
 
     return (
@@ -34,14 +30,14 @@ export function LoginPage() {
                         <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-center">
                             Sign in to your account
                         </h1>
-                        <form className="space-y-4" action="#">
+                        <form className="space-y-4" onSubmit={handleSubmit}>
                             <div>
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium">Your email or username</label>
-                                <input type="text" className="border border-gray-300 text-white rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@gmail.com or username" required={true} />
+                                <label className="block mb-2 text-sm font-medium">Your email or username</label>
+                                <input onChange={ev => setUsernameOrEmail(ev.target.value)} type="text" className="border border-gray-300 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@gmail.com or username" required={true} />
                             </div>
                             <div>
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium">Password</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required={true} />
+                                <label className="block mb-2 text-sm font-medium">Password</label>
+                                <input onChange={ev => setPassword(ev.target.value)} type="password" name="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required={true} />
                             </div>
                             <div className="flex items-center justify-between">
                                 <div className="flex items-start">

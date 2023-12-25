@@ -1,13 +1,11 @@
-import { NavLink, Outlet } from "react-router-dom";
-import logo from "../assets/Logo.png"
-import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import { NavbarComp } from "../components/NavbarComp";
 
 export function PublicLay() {
 
     return (
         <>
-            <div className="bg-primaryBg text-sm">
+            <div className="bg-primaryBg text-sm lg:text-lg">
                 <NavbarComp />
 
                 <Outlet />

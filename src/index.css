@@ -9,6 +9,8 @@
 
 /* Menyembunyikan scrollbar untuk Internet Explorer, Edge and Firefox */
 .hide-scrollbar-ms {
-  -ms-overflow-style: none;  /* Internet Explorer dan Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer dan Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
