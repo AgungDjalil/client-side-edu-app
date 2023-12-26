@@ -1,25 +1,38 @@
 import { useState } from "react"
 import { useAuthContext } from "../../../context/AuthContext"
-import { NavLink, Navigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
+import { RedirectComp } from "../../../components/RedirectComp"
 
 export function LoginPage() {
-    const { signIn, accessToken, isReady, userRole } = useAuthContext()
+    const { signIn, isReady, userRole } = useAuthContext()
     const [isRedirect, setIsRedirect] = useState(false)
     const [usernameOrEmail, setUsernameOrEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate()
 
-    if (!accessToken && !isReady && isRedirect && !userRole) return <h1>Loading.....</h1>
-
-    if (accessToken && isReady && isRedirect && userRole === 'admin') return <Navigate to={'/admin'} />
-
-    if (accessToken && isReady && isRedirect && userRole === 'moderator') return <Navigate to={'/moderator'} />
-
-    if (accessToken && isReady && isRedirect && userRole === 'user') return <Navigate to={'/'} />
+    if (isLoading && !isRedirect) return <RedirectComp />
 
     async function handleSubmit(event: any) {
+        setIsLoading(true)
         event.preventDefault()
-        const isSuccess = await signIn(usernameOrEmail, password)
-        if(isSuccess) setIsRedirect(true)
+        const result = await signIn(usernameOrEmail, password)
+
+        if (result.statusCode >= 200 && result.statusCode <= 300) {
+            setIsRedirect(true)
+
+            if(result.role === 'admin') return navigate('/admin')
+
+            if (result.role === 'moderator') return navigate('/moderator')
+
+            if (result.role === 'user') return navigate('/home')
+        }
+
+        if (result.error) {
+            setIsLoading(false)
+            setErrorMessage(result.message)
+        }
     }
 
     return (
@@ -32,17 +45,25 @@ export function LoginPage() {
                         </h1>
                         <form className="space-y-4" onSubmit={handleSubmit}>
                             <div>
-                                <label className="block mb-2 text-sm font-medium">Your email or username</label>
+                                <label className="block mb-2 text-sm font-medium">
+                                    {
+                                        errorMessage.includes('user') && <span className="text-red-700 ms-2">{errorMessage}*</span>
+                                    }
+                                </label>
                                 <input onChange={ev => setUsernameOrEmail(ev.target.value)} type="text" className="border border-gray-300 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@gmail.com or username" required={true} />
                             </div>
                             <div>
-                                <label className="block mb-2 text-sm font-medium">Password</label>
-                                <input onChange={ev => setPassword(ev.target.value)} type="password" name="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required={true} />
+                                <label className="block mb-2 text-sm font-medium">
+                                    {
+                                        errorMessage.includes('password') && <span className="text-red-700 ms-2">{errorMessage}*</span>
+                                    }
+                                </label>
+                                <input onChange={ev => setPassword(ev.target.value)} type="password" name="password" placeholder="password" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required={true} />
                             </div>
                             <div className="flex items-center justify-between">
                                 <div className="flex items-start">
                                     <div className="flex items-center h-5">
-                                        <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300" required={true} />
+                                        <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300" />
                                     </div>
                                     <div className="ml-3 text-sm">
                                         <label htmlFor="remember" className="text-gray-500">Remember me</label>

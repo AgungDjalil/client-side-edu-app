@@ -2,10 +2,12 @@ import { NavLink } from "react-router-dom"
 import logo from "../../assets/Logo.png"
 import { useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
+import { ProfilComp } from "../../components/public/ProfilComp";
 
 export function LandingPage() {
+    const { userID, isReady } = useAuthContext()
     const [scrollPosition, setScrollPosition] = useState(0);
-
+    
     const scrollContent = (direction: string) => {
         const container = document.getElementById('scrollContainer');
 
@@ -29,12 +31,15 @@ export function LandingPage() {
                 <NavLink to={'/'} className="mt-4">
                     <img src={logo} className="w-20" alt="" />
                 </NavLink>
-                <div className="flex font-bold mt-4 text-sm gap-4">
-                    <NavLink to={'/login'} className="bg-white py-3 px-2 rounded-xl">Masuk</NavLink>
-                    <NavLink to={'/register'} className="py-3 px-2">Daftar</NavLink>
-                </div>
+                {
+                    userID && isReady ?
+                        <div className="mt-4"><ProfilComp /></div> :
+                        <div className="flex font-bold mt-4 text-sm gap-4">
+                            <NavLink to={'/login'} className="bg-white py-3 px-2 rounded-xl">Masuk</NavLink>
+                            <NavLink to={'/register'} className="py-3 px-2">Daftar</NavLink>
+                        </div>
+                }
             </div>
-
             <div className="flex justify-center mt-36 text-center">
                 <div className="w-3/4 lg:w-3/6">
                     <form>

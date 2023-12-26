@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import contohIcon from "../assets/category-svgrepo-com.svg"
 
 export function CategoryComp() {
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../context/AuthContext";
-import { LoadingComp } from "../../../components/LoadingComp";
+import { RedirectComp } from "../../../components/RedirectComp";
 
 export function RegisterPage() {
     const { register } = useAuthContext()
@@ -25,7 +25,7 @@ export function RegisterPage() {
         }
     }
 
-    if(loading) return <LoadingComp />
+    if(loading) return <RedirectComp />
 
     return (
         <section className="bg-primaryBg h-screen flex items-center justify-center">
@@ -60,7 +60,7 @@ export function RegisterPage() {
                             </div>
                             <button type="submit" className="w-full text-white bg-black hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">register</button>
                             <p className="text-sm font-light text-gray-500">
-                                Already have an account yet? <NavLink to={'/register'} className="font-medium hover:underline">Sign in</NavLink>
+                                Already have an account yet? <NavLink to={'/login'} className="font-medium hover:underline">Sign in</NavLink>
                             </p>
                             <p className="mt-3 text-sm font-light text-gray-500">
                                 <NavLink to={'/'}>Home...</NavLink>

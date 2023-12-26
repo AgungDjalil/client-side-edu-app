@@ -2,74 +2,55 @@ export function LoadingComp() {
     return (
         <div className="flex items-center justify-center h-screen">
             <div className="loader">
-                <label>Redirecting...</label>
-                <div className="loading"></div>
-
+                <div className="track"></div>
+                <div className="inner-track"></div>
+                <div className="orb"></div>
                 <style>
                     {`
-                .loader {
-                    width: 350px;
-                    height: 180px;
-                    border-radius: 10px;
-                    background: #fff;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: space-evenly;
-                    padding: 30px;
-                    box-shadow: 2px 2px 10px -5px lightgrey;
-                  }
-                  
-                  .loading {
-                    width: 100%;
-                    height: 10px;
-                    background: lightgrey;
-                    border-radius: 10px;
-                    position: relative;
-                  }
-                  
-                  .loading::after {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 50%;
-                    height: 10px;
-                    background: #002;
-                    border-radius: 10px;
-                    z-index: 1;
-                    animation: loading 0.6s alternate infinite;
-                  }
-                  
-                  label {
-                    color: #002;
-                    font-size: 18px;
-                    animation: bit 0.6s alternate infinite;
-                  }
-                  
-                  @keyframes bit {
-                    from {
-                      opacity: 0.3;
+                    /* Container for the loader */
+                    .loader {
+                      position: relative;
+                      width: 10em;
+                      height: 10em;
                     }
-                  
-                    to {
-                      opacity: 1;
+                    /* Track elements */
+                    .track, .inner-track {
+                      position: absolute;
+                      width: 100%;
+                      height: 100%;
+                      border-radius: 50%;
+                      box-shadow: inset -0.1em -0.1em 0.2em #d1d1d1, inset 0.1em 0.1em 0.2em #ffffff;
                     }
-                  }
-                  
-                  @keyframes loading {
-                    0% {
-                      left: 25%;
+                    .inner-track {
+                      width: 80%;
+                      height: 80%;
+                      top: 10%;
+                      left: 10%;
+                      border: 2em solid #f0f0f0;
                     }
-                  
-                    100% {
+                    /* Orb element */
+                    .orb {
+                      position: absolute;
+                      width: 1.5em;
+                      height: 1.5em;
+                      top: 50%;
                       left: 50%;
+                      background-color: #c0cfda;
+                      border-radius: 50%;
+                      animation: spin 1.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
+                      background: radial-gradient(circle at 30% 30%, #ffffff, #ccc);
+                      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), inset 0 -2px 4px rgba(255, 255, 255, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.2);
                     }
-                  
-                    0% {
-                      left: 0%;
-                    }
-                  }
+                    /* Animations */
+                    @keyframes spin {
+                      0% {
+                        transform: translate(-50%, -50%) rotate(90deg) translate(3em) rotate(-90deg);
+                      }
+                    
+                      100% {
+                        transform: translate(-50%, -50%) rotate(450deg) translate(3em) rotate(-450deg);
+                      }
+                    }                    
                 `}
                 </style>
             </div>
