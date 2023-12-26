@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { PublicLay } from "../layout/PublicLay";
 import { LandingPage } from "../pages/public/LandingPage";
-import { HomePageAdmin } from "../pages/admin/HomePageAdmin";
 import { HomePageModerator } from "../pages/moderator/HomePageModerator";
 import { LoginPage } from "../pages/public/auth/LoginPage";
 import { PageShield } from "../components/PageShield";
@@ -11,6 +10,10 @@ import { CreateQuestion, createQuestionLoader } from "../pages/public/question/C
 import { EditQuestion, editQuestionLoader } from "../pages/public/question/EditQuestion";
 import { ShowQuestion, showQuestionLoader } from "../pages/public/question/ShowQuestion";
 import { UserPage, userPageLoader } from "../pages/public/UserPage";
+import { SideBarAdmin } from "../layout/SidebarAdmin";
+import { UserPageAdmin } from "../pages/admin/user/UserPageAdmin";
+import { QuestionPageAdmin } from "../pages/admin/question/QuestionPageAdmin";
+import { AnswerPageAdmin } from "../pages/admin/answer/AnswerPageAdmin";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +30,24 @@ export const router = createBrowserRouter([
                         path: '/profile/:userID',
                         element: <UserPage />,
                         loader: userPageLoader
+                    }
+                ]
+            },
+            {
+                path: '/admin',
+                element: <PageShield children={<SideBarAdmin />} pageType="admin" />,
+                children: [
+                    {
+                        path: '/admin/users',
+                        element: <UserPageAdmin />
+                    },
+                    {
+                        path: '/admin/question',
+                        element: <QuestionPageAdmin />
+                    },
+                    {
+                        path: '/admin/answer',
+                        element: <AnswerPageAdmin />
                     }
                 ]
             },
@@ -56,10 +77,6 @@ export const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <RegisterPage />
-            },
-            {
-                path: '/admin',
-                element: <PageShield children={<HomePageAdmin />} pageType="admin" />
             },
             {
                 path: '/moderator',
