@@ -14,10 +14,19 @@ import { SideBarAdmin } from "../layout/SidebarAdmin";
 import { UserPageAdmin } from "../pages/admin/user/UserPageAdmin";
 import { QuestionPageAdmin } from "../pages/admin/question/QuestionPageAdmin";
 import { AnswerPageAdmin } from "../pages/admin/answer/AnswerPageAdmin";
+import { ReportPageAdmin } from "../pages/admin/report/ReportPageAdmin";
+import { AnswerPage } from "../pages/public/answer/AnswerPage";
+import { ShowAnswerAndQuestionPage } from "../pages/public/ShowAnswerAndQuestionPage";
+import { BottomNavModerator } from "../layout/BottomNavModerator";
 
 export const router = createBrowserRouter([
     {
         children: [
+            {
+                path: '/moderator',
+                element: <PageShield children={<BottomNavModerator />} pageType="moderator" />,
+                children: []
+            },
             {
                 element: <PublicLay />,
                 children: [
@@ -30,6 +39,10 @@ export const router = createBrowserRouter([
                         path: '/profile/:userID',
                         element: <UserPage />,
                         loader: userPageLoader
+                    },
+                    {
+                        path: '/answer/:questionID',
+                        element: <ShowAnswerAndQuestionPage />
                     }
                 ]
             },
@@ -48,8 +61,16 @@ export const router = createBrowserRouter([
                     {
                         path: '/admin/answer',
                         element: <AnswerPageAdmin />
+                    },
+                    {
+                        path: '/admin/report',
+                        element: <ReportPageAdmin />
                     }
                 ]
+            },
+            {
+                path: '/create/answer/:questionID',
+                element: <AnswerPage />,
             },
             {
                 path: '/createQuestion',
@@ -78,10 +99,6 @@ export const router = createBrowserRouter([
                 path: '/register',
                 element: <RegisterPage />
             },
-            {
-                path: '/moderator',
-                element: <PageShield children={<HomePageModerator />} pageType="moderator" />
-            }
         ],
         errorElement: <p>page not found</p>
     }

@@ -10,7 +10,7 @@ export function CardComp({questionText, mapel, questionID}: {questionText: strin
                 </NavLink>
                 <NavLink className="self-center underline" to={"/"}>{mapel}</NavLink>
             </div>
-            <NavLink to={""} className="mx-2 my-2 hover:underline">
+            <NavLink to={`/answer/${questionID}`} className="mx-2 my-2 hover:underline">
                 {
                     questionText.length > 200 ? questionText.slice(0, 200) + "....." : questionText
                 }
@@ -32,7 +32,7 @@ export function CardComp({questionText, mapel, questionID}: {questionText: strin
                         </g>
                     </svg>
                 </button>
-                <NavLink to={""} className="bg-slate-800 rounded-lg w-max p-2 text-white">+ Jawab</NavLink>
+                <NavLink to={`/create/answer/${questionID}`} className="bg-slate-800 rounded-lg w-max p-2 text-white">+ Jawab</NavLink>
             </div>
         </div>
     )

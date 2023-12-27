@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { getAllUser } from "../../../api"
-import { UserTableComp } from "../../../components/admin/UserTableComp"
 import { LoadingComp } from "../../../components/LoadingComp"
+import { TableComp } from "../../../components/admin/TableComp"
 
 export function UserPageAdmin() {
     const [users, setUsers] = useState(Array)
@@ -19,7 +19,7 @@ export function UserPageAdmin() {
     }, [searchValue])
 
     if (isLoading) return <LoadingComp />
-
+    
     return (
         <main className="p-4 ml-64">
             <div className="relative mb-5">
@@ -32,39 +32,15 @@ export function UserPageAdmin() {
             </div>
 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left rtl:text-right dark:text-gray-400">
-                    <thead className="text-xs uppercase bg-gray-50">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">
-                                Username
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Email
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Point
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                joinAt
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    {
-                        users.map(({ username, userID, email, point, joinAt }: any) => (
-                            <UserTableComp
-                                key={userID}
-                                userID={userID}
-                                email={email}
-                                username={username}
-                                point={point}
-                                joinAt={joinAt}
-                            />
-                        ))
-                    }
-                </table>
+                <TableComp
+                    colName={[
+                        "username", "email", "point", "joinAt"
+                    ]}
+                    attributs={[
+                        "username", "email", "point", "joinAt"
+                    ]}
+                    data={users}
+                />
             </div>
         </main>
     )

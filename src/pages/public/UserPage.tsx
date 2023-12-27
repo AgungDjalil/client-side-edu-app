@@ -3,6 +3,7 @@ import { getOneUser, getQuestionByUser } from "../../api"
 import userProfile from "../../assets/user-profile.svg"
 import { ShowUserQuestion } from "../../components/ShowUserQuestion"
 import { useState } from "react"
+import { AnswerUserComp } from "../../components/public/AnswerUserComp"
 
 export async function userPageLoader({ params }: any) {
     const user = await getOneUser(params.userID)
@@ -35,7 +36,7 @@ export function UserPage() {
                 counter && <ShowUserQuestion userID={data.userID} />
             }
             {
-                !counter && <p>ini answer</p>
+                !counter && <AnswerUserComp userID={data.userID} />
             }
         </div>
     )
