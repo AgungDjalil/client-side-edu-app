@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { TableComp } from "../../../components/admin/TableComp";
 import { getAllUserReportForAdmin } from "../../../api";
 import { LoadingComp } from "../../../components/LoadingComp";
 
@@ -10,6 +9,7 @@ export function ReportPageAdmin() {
         const getData = async () => {
             const data = await getAllUserReportForAdmin()
             setDataReport(data)
+            console.log(data)
         }
         getData()
     }, [])
@@ -19,11 +19,11 @@ export function ReportPageAdmin() {
     return (
         <main className="p-4 ml-64">
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <TableComp
+                {/* <TableComp
                     attributs={[]}
                     colName={[]}
                     data={dataReport}
-                />
+                /> */}
             </div>
         </main>
     )

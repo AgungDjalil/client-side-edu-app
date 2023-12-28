@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../../context/AuthContext";
 import { useState } from "react";
-import logoUser from "../../assets/user-profile.svg"
+import logoUser from "../../../assets/user-profile.svg"
 
 export function ProfilComp() {
     const { userID, signOut } = useAuthContext()

@@ -1,13 +1,13 @@
 import { Await, defer, useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { getMapel, getOneQuestion, getTingkatPendidikan, updateQuestion } from "../../../api";
+import { getAllTags, getAllCategory, getOneQuestion, updateQuestion } from "../../../api";
 import { NavbarComp } from "../../../components/public/NavbarComp";
 import React, { useEffect, useState } from "react";
 import { LoadingComp } from "../../../components/LoadingComp";
 
 export async function editQuestionLoader({ params }: any) {
     const question = await getOneQuestion(params.questionID)
-    const mapel = await getMapel()
-    const tingkatPendidikan = await getTingkatPendidikan()
+    const mapel = await getAllCategory('')
+    const tingkatPendidikan = await getAllTags('')
     
     return defer({
         question,

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 import logo from "../../assets/Logo.png"
 import { useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
-import { ProfilComp } from "../../components/public/ProfilComp";
+import { ProfilComp } from "../../components/public/user/ProfilComp";
 
 export function LandingPage() {
     const { userID, isReady } = useAuthContext()

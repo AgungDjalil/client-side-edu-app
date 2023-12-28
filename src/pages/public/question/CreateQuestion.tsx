@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { NavbarComp } from "../../../components/public/NavbarComp";
-import { getMapel, getTingkatPendidikan, postQuestion } from "../../../api";
+import { getAllTags, getAllCategory, postQuestion } from "../../../api";
 import { Await, defer, useLoaderData, useNavigate } from "react-router-dom";
 import { LoadingComp } from "../../../components/LoadingComp";
 
 export async function createQuestionLoader() {
-    const mapel = await getMapel()
-    const tingkatPendidikan = await getTingkatPendidikan()
+    const mapel = await getAllCategory('')
+    const tingkatPendidikan = await getAllTags('')
 
     return defer({
         mapel,

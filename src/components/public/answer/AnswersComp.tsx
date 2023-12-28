@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { createCommentForAnswer, getAllAnswerComment } from "../../api";
-import { LoadingComp } from "../LoadingComp";
-import { CommentComp } from "./CommentComp";
+import { createCommentForAnswer, getAllAnswerComment } from "../../../api";
+import { LoadingComp } from "../../LoadingComp";
+import { CommentComp } from "../comment/CommentComp";
 
 export function AnswerComp({ userID, answerID, answerText, questionID }: any) {
     const [answerComment, setAnswerComment] = useState<[]>()

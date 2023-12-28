@@ -1,9 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import { PublicLay } from "../layout/PublicLay";
 import { LandingPage } from "../pages/public/LandingPage";
-import { HomePageModerator } from "../pages/moderator/HomePageModerator";
 import { LoginPage } from "../pages/public/auth/LoginPage";
-import { PageShield } from "../components/PageShield";
+import { PageShield } from "../components/auth/PageShield";
 import { RegisterPage } from "../pages/public/auth/RegisterPage";
 import { HomePage, homePageLoader } from "../pages/public/HomePage";
 import { CreateQuestion, createQuestionLoader } from "../pages/public/question/CreateQuestion";
@@ -18,6 +17,10 @@ import { ReportPageAdmin } from "../pages/admin/report/ReportPageAdmin";
 import { AnswerPage } from "../pages/public/answer/AnswerPage";
 import { ShowAnswerAndQuestionPage } from "../pages/public/ShowAnswerAndQuestionPage";
 import { BottomNavModerator } from "../layout/BottomNavModerator";
+import { ShowAnswer } from "../pages/public/answer/ShowAnswer";
+import { EditAnswerPage } from "../pages/public/answer/EditAnswerPage";
+import { Tag } from "../pages/moderator/tag/Index";
+import { CategoryPage } from "../pages/moderator/category";
 
 export const router = createBrowserRouter([
     {
@@ -25,7 +28,16 @@ export const router = createBrowserRouter([
             {
                 path: '/moderator',
                 element: <PageShield children={<BottomNavModerator />} pageType="moderator" />,
-                children: []
+                children: [
+                    {
+                        path: 'tag',
+                        element: <Tag />
+                    },
+                    {
+                        path: 'category',
+                        element: <CategoryPage />
+                    }
+                ]
             },
             {
                 element: <PublicLay />,
@@ -67,6 +79,14 @@ export const router = createBrowserRouter([
                         element: <ReportPageAdmin />
                     }
                 ]
+            },
+            {
+                path: '/editAnswer/:answerID',
+                element: <EditAnswerPage />
+            },
+            {
+                path: '/showAnswer/:answerID',
+                element: <ShowAnswer />
             },
             {
                 path: '/create/answer/:questionID',

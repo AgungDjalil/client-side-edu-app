@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { NavLink, useNavigate, useParams } from "react-router-dom"
 import { createCommentForQuestion, getAllAnswerBasesQuestion, getAllQuestionComments, getOneQuestion } from "../../api"
 import { LoadingComp } from "../../components/LoadingComp"
-import { CommentComp } from "../../components/public/CommentComp"
-import { AnswerComp } from "../../components/public/AnswersComp"
+import { CommentComp } from "../../components/public/comment/CommentComp"
+import { AnswerComp } from "../../components/public/answer/AnswersComp"
 
 export function ShowAnswerAndQuestionPage() {
     const { questionID } = useParams()

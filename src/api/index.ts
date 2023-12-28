@@ -9,26 +9,162 @@ const axiosInstance = axios.create({
     baseURL: `${process.env.REACT_APP_API_URL}/api`,
 })
 
+// belum berhasil
+// get all user report for admin
+export const getAllUserReportForAdmin = async () => {
+    const token = await getToken()
+    return axiosInstance
+        .get('/reports/users', { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(response => response.data)
+        .catch(error => error)
+}
 
+// belum berhasil
+// delete question
+export const deleteQuestion = async (questionID: string) => {
+    const token = await getToken()
+    return axiosInstance
+            .delete(`questions/:questionID/delete/:reportID`, { headers: { 'Authorization': `Bearer ${token}` }})
+            .then(response => response.data)
+            .catch(error => error)
+}
+
+// ada 30 api tersambung di bawah
+
+// delete user
+export const deleteUser = async (userID: string) => {
+    const token = await getToken()
+    return axiosInstance
+        .delete(`users/${userID}/delete`, { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(response => console.log((response.data)))
+        .catch(error => error)
+}
+
+// get all users for admin page
+export const getAllUser = async (searchValue: string | null = null, type: string | undefined) => {
+    const token = await getToken()
+    return type === 'all' ?
+        axiosInstance
+            .get(`users/admin/all${searchValue ?
+                    `?page=${searchValue}`
+                    : ''
+                }`, { headers: { 'Authorization': `Bearer ${token}` } })
+            .then(response => response.data)
+            .catch(error => error) :
+        axiosInstance
+            .get(`/users${searchValue ?
+                searchValue.includes('@gmail.com') && '?email=' + searchValue ||
+                searchValue && '?username=' + searchValue
+                : ''
+                }`)
+            .then(response => response.data)
+            .catch(error => error)
+}
+
+// delete category
+export const deleteCategory = async (categoryID: string) => {
+    const token = await getToken()
+    return axiosInstance
+        .delete(`category/${categoryID}/delete`, { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(response => response.data)
+        .catch(error => error)
+}
+
+// create category
+export const createCategory = async (categoryName: string | undefined) => {
+    const token = await getToken()
+    return axiosInstance
+        .post('category/user/create', { categoryName }, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        .then(response => response.data)
+        .catch(error => error)
+}
+
+// get all category
+export const getAllCategory = async (type: string) => {
+    const token = await getToken()
+    return type === 'moderator' ?
+        axiosInstance
+            .get(`/category/all`, { headers: { 'Authorization': `Bearer ${token}` } })
+            .then(response => response.data)
+            .catch(error => error) :
+        axiosInstance
+            .get('category')
+            .then(response => response.data)
+            .catch(error => error)
+}
+
+// create tag
+export const createTag = async (tagName: string) => {
+    const token = await getToken()
+    return axiosInstance
+        .post('tags/create', { tagName }, { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(response => response.data)
+        .catch(error => error)
+}
+
+// get all tags moderator and user
+export const getAllTags = async (type: string | undefined) => {
+    const token = await getToken()
+    return type === "moderator" ?
+        axiosInstance
+            .get(`tags/all`, { headers: { 'Authorization': `Bearer ${token}` } })
+            .then(response => response.data)
+            .catch(error => error) :
+        axiosInstance
+            .get('/tags')
+            .then(response => response.data)
+            .catch(error => error)
+}
+
+// delete tag
+export const deleteTag = async (tagID: string | undefined) => {
+    const token = await getToken()
+    return axiosInstance
+        .post(`tags/${tagID}/delete`, {}, { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(response => response.data)
+        .catch(error => error)
+}
+
+// edit answer
+export const editAnswer = async (answerID: string | undefined, answerText: string | undefined) => {
+    const token = await getToken()
+    return axiosInstance
+        .patch(`answer/${answerID}/edit`, { answerText }, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        .then(response => response.data)
+        .catch(error => error)
+}
+
+// get one answer
+export const getOneAnswer = async (answerID: string | undefined) => {
+    const token = await getToken()
+    return axiosInstance
+        .get(`/answers/${answerID}`, { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(response => response.data)
+        .catch(error => error)
+}
 
 // get all answer bases on user
 export const getAllAnswerBasesUser = async (userID: string) => {
     const token = await getToken()
     return axiosInstance
-            .get(`answer/${userID}`, { headers: { 'Authorization': `Bearer ${token}`}})
-            .then(response => response.data)
-            .catch(error => error)
+        .get(`answer/${userID}`, { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(response => response.data)
+        .catch(error => error)
 }
 
 // create comment for answer
 export const createCommentForAnswer = async (answerID: string, commentText: string | undefined) => {
     const token = await getToken()
     return axiosInstance
-            .post(`comments/user/create/${answerID}/answer`, { commentText }, {
-                headers: { 'Authorization': `Bearer ${token}`}
-            })
-            .then(response => response.data)
-            .catch(error => error)
+        .post(`comments/user/create/${answerID}/answer`, { commentText }, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        .then(response => response.data)
+        .catch(error => error)
 }
 
 // get all comment for answer
@@ -42,15 +178,15 @@ export const getAllAnswerComment = async (answerID: string) =>
 export const createCommentForQuestion = async (questionID: string | undefined, commentText: string | undefined) => {
     const token = await getToken()
     return axiosInstance
-            .post(`comments/user/create/${questionID}/question`, { commentText }, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            })
-            .then(response => response.data)
-            .catch(error => error)
+        .post(`comments/user/create/${questionID}/question`, { commentText }, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        .then(response => response.data)
+        .catch(error => error)
 }
 
 // get all comment for question
-export const getAllQuestionComments = (questionID: string) => 
+export const getAllQuestionComments = (questionID: string) =>
     axiosInstance
         .get(`comments/question/${questionID}`)
         .then(response => response.data)
@@ -72,16 +208,6 @@ export const createAnswer = async (questionID: string, answerText: string) => {
         .catch(error => error)
 }
 
-// belum berhasil
-// get all user report for admin
-export const getAllUserReportForAdmin = async () => {
-    const token = await getToken()
-    return axiosInstance
-        .get('/reports/users', { headers: { 'Authorization': `Bearer ${token}` } })
-        .then(response => response.data)
-        .catch(error => error)
-}
-
 // get all answers for admin
 export const getAllAnswerForAdmin = async () => {
     const token = await getToken()
@@ -96,19 +222,6 @@ export const getAllQuestionsForAdmin = async () => {
     const token = await getToken()
     return axiosInstance
         .get('/questions/admin', { headers: { 'Authorization': `Bearer ${token}` } })
-        .then(response => response.data)
-        .catch(error => error)
-}
-
-// get all users for admin page
-export const getAllUser = async (searchValue: string | null = null) => {
-    const token = await getToken()
-    return axiosInstance
-        .get(`/users/admin/all${searchValue ?
-                searchValue.includes('@gmail.com') && '?email=' + searchValue ||
-                searchValue && '?username=' + searchValue
-                : ''
-            }`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(response => response.data)
         .catch(error => error)
 }
@@ -176,17 +289,3 @@ export const postQuestion = async (questionText: string, categoryID: string, tag
         .then(response => response.data)
         .catch(error => error)
 }
-
-// get all category
-export const getMapel = () =>
-    axiosInstance
-        .get(`/category`)
-        .then(response => response.data)
-        .catch(error => error)
-
-// get all tag
-export const getTingkatPendidikan = () =>
-    axiosInstance
-        .get('/tags')
-        .then(response => response.data)
-        .catch(error => error)

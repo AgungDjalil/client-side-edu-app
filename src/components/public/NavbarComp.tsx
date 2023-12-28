@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/Logo.png"
 import { useAuthContext } from "../../context/AuthContext";
-import { ProfilComp } from "./ProfilComp";
+import { ProfilComp } from "./user/ProfilComp";
 
 export function NavbarComp() {
     const [isNavOpen, setIsNavOpen] = useState(false);

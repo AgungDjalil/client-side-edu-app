@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { getQuestionByUser } from "../api"
-import { LoadingComp } from "./LoadingComp"
-import { CardComp } from "./public/CardComp"
+import { getQuestionByUser } from "../../../api"
+import { LoadingComp } from "../../LoadingComp"
+import { CardComp } from "./CardComp"
 
 export function ShowUserQuestion({ userID }: { userID: string }) {
     const [isLoading, setIsLoading] = useState(true)

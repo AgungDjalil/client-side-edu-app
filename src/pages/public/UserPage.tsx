@@ -1,9 +1,9 @@
 import { useLoaderData } from "react-router-dom"
 import { getOneUser, getQuestionByUser } from "../../api"
 import userProfile from "../../assets/user-profile.svg"
-import { ShowUserQuestion } from "../../components/ShowUserQuestion"
+import { ShowUserQuestion } from "../../components/public/question/ShowUserQuestion"
 import { useState } from "react"
-import { AnswerUserComp } from "../../components/public/AnswerUserComp"
+import { AnswerUserComp } from "../../components/public/answer/AnswerUserComp"
 
 export async function userPageLoader({ params }: any) {
     const user = await getOneUser(params.userID)

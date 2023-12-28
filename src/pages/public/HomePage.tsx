@@ -1,7 +1,7 @@
-import { CardComp } from "../../components/public/CardComp";
-import { LeaderBoardComp } from "../../components/public/LeaderBoardComp";
+import { CardComp } from "../../components/public/question/CardComp";
+import { LeaderBoardComp } from "../../components/public/user/LeaderBoardComp";
 import { PaginationComp } from "../../components/PaginationComp";
-import { CategoryComp } from "../../components/public/CategoryComp";
+import { CategoryComp } from "../../components/public/filter/CategoryComp";
 import { Await, NavLink, defer, useLoaderData } from "react-router-dom";
 import plusIcon from "../../assets/plus-icons.svg"
 import { getAllQuestions } from "../../api";
@@ -61,7 +61,7 @@ export function HomePage() {
                         </Await>
                     </React.Suspense>
                 </div>
-                <PaginationComp />
+                {/* <PaginationComp /> */}
             </div>
 
             <LeaderBoardComp />

@@ -2,18 +2,21 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { createAnswer, getOneQuestion } from "../../../api"
 import { LoadingComp } from "../../../components/LoadingComp"
+import { RedirectComp } from "../../../components/RedirectComp"
 
 export function AnswerPage() {
     const { questionID } = useParams()
     const [question, setQuestion] = useState<any>()
     const [answer, setAnswer] = useState('')
     const navigate = useNavigate()
+    const [redirect, setRedirect] = useState<boolean>(false)
 
     const hanldeSubmit = async (ev: any) => {
+        setRedirect(true)
         ev.preventDefault()
         if(questionID) {
             const result = await createAnswer(questionID, answer)
-            if(result.createdAt) navigate(`/answer/${questionID}`)
+            if(result.createdAt) navigate(`/showAnswer/${result.answerID}`)
         }
     }
 
@@ -28,6 +31,8 @@ export function AnswerPage() {
     }, [])
 
     if (!question) return <LoadingComp />
+
+    if(redirect) return <RedirectComp />
     
     return (
         <div className="bg-primaryBg h-screen text-center">

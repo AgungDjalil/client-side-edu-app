@@ -1,6 +1,6 @@
 import { Await, NavLink, defer, useLoaderData, useParams } from "react-router-dom";
 import { NavbarComp } from "../../../components/public/NavbarComp";
-import { getMapel, getOneQuestion, getSatuMapel, getSatuTingkatPendidikan, getTingkatPendidikan } from "../../../api";
+import { getAllTags, getAllCategory, getOneQuestion, getSatuMapel, getSatuTingkatPendidikan } from "../../../api";
 import React from "react";
 import { LoadingComp } from "../../../components/LoadingComp";
 
@@ -8,8 +8,8 @@ export async function showQuestionLoader({ params }: any) {
     const question = await getOneQuestion(params.questionID)
     const mapelQuestion = await getSatuMapel(question.categoryID.categoryID)
     const tingkatPendidikanQuestion = await getSatuTingkatPendidikan(question.tagID.tagID)
-    const mapel = await getMapel()
-    const tingkatPendidikan = await getTingkatPendidikan()
+    const mapel = await getAllCategory('')
+    const tingkatPendidikan = await getAllTags('')
 
     return defer({
         question: question,

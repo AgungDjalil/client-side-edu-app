@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { getAllAnswerBasesUser } from "../../api"
-import { LoadingComp } from "../LoadingComp"
+import { getAllAnswerBasesUser } from "../../../api"
+import { LoadingComp } from "../../LoadingComp"
 import { NavLink } from "react-router-dom"
 
 export function AnswerUserComp({ userID }: { userID: string }) {
