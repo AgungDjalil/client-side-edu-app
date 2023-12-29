@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom"
-import { deleteCategory, deleteTag, deleteUser } from "../api"
+import { deleteAnswer, deleteCategory, deleteComment, deleteQuestion, deleteTag, deleteUser } from "../api"
 import { useState } from "react"
 
 export function PopupComp({ ID, type }: any) {
@@ -15,6 +14,12 @@ export function PopupComp({ ID, type }: any) {
         if(type === "category") await deleteCategory(ID)
 
         if(type === "user") await deleteUser(ID)
+
+        if(type === "question" && Array.isArray(ID)) await deleteQuestion(ID[0], ID[1])
+
+        if(type === "answer" && Array.isArray(ID)) await deleteAnswer(ID[0], ID[1])
+
+        if(type === "comment" && Array.isArray(ID)) await deleteComment(ID[0], ID[1])
     }
 
     return (

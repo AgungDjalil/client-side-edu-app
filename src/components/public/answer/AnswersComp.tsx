@@ -3,12 +3,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { createCommentForAnswer, getAllAnswerComment } from "../../../api";
 import { LoadingComp } from "../../LoadingComp";
 import { CommentComp } from "../comment/CommentComp";
+import { ReportComp } from "../report/ReportComp";
 
 export function AnswerComp({ userID, answerID, answerText, questionID }: any) {
     const [answerComment, setAnswerComment] = useState<[]>()
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [comment, setComment] = useState<string>()
     const navigate = useNavigate()
+    const [isReportPopupOpen, setIsReportPopupOpen] = useState<boolean>(false)
 
     const handleSubmitCommentAnswer = async () => {
         const result = await createCommentForAnswer(answerID, comment)
@@ -19,7 +21,6 @@ export function AnswerComp({ userID, answerID, answerText, questionID }: any) {
         const getData = async () => {
             const data = await getAllAnswerComment(answerID)
             setAnswerComment(data)
-            console.log(data)
             setIsLoading(false)
         }
         getData()
@@ -50,15 +51,16 @@ export function AnswerComp({ userID, answerID, answerText, questionID }: any) {
             <div className="border-t-2 border-gray-500 mx-6 my-4" />
             {
                 answerComment?.length ?
-                    answerComment?.map(({ commentText, userID }: any) => (
+                    answerComment?.map(({ commentID, commentText, userID }: any) => (
                         <CommentComp
+                            commentID={commentID}
                             commentText={commentText}
                             userID={userID.userID}
                         />
                     )) : ''
             }
             <div className="flex w-full justify-between p-2 gap-2">
-                <button className="self-center">
+                <button onClick={() => setIsReportPopupOpen(true)} className="self-center">
                     <svg width="20px" height="20px" viewBox="-6.5 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
                         <title>menu_option [#1374]</title>
                         <desc>Created with Sketch.</desc>
@@ -86,6 +88,13 @@ export function AnswerComp({ userID, answerID, answerText, questionID }: any) {
                     </div>
                 </form>
             </div>
+            {isReportPopupOpen &&
+                <ReportComp 
+                    id={answerID}
+                    type="answer"
+                    setReportPopupOpen={setIsReportPopupOpen}
+                />
+            }
         </div>
     )
 }

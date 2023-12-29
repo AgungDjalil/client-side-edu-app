@@ -9,29 +9,107 @@ const axiosInstance = axios.create({
     baseURL: `${process.env.REACT_APP_API_URL}/api`,
 })
 
-// belum berhasil
-// get all user report for admin
-export const getAllUserReportForAdmin = async () => {
+// 41. delete comment
+export const deleteComment = async (commentID: string, reportID: string) => {
     const token = await getToken()
     return axiosInstance
-        .get('/reports/users', { headers: { 'Authorization': `Bearer ${token}` } })
-        .then(response => response.data)
-        .catch(error => error)
-}
-
-// belum berhasil
-// delete question
-export const deleteQuestion = async (questionID: string) => {
-    const token = await getToken()
-    return axiosInstance
-            .delete(`questions/:questionID/delete/:reportID`, { headers: { 'Authorization': `Bearer ${token}` }})
+            .delete(`comments/${commentID}/delete/${reportID}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
             .then(response => response.data)
             .catch(error => error)
 }
 
-// ada 30 api tersambung di bawah
+// 40. delete answer
+export const deleteAnswer = async (answerID: string, reportID: string) => {
+    const token = await getToken()
+    return axiosInstance
+            .delete(`answer/${answerID}/delete/${reportID}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => response.data)
+            .catch(error => error)
+}
 
-// delete user
+// 39. delete question
+export const deleteQuestion = async (questionID: string, reportID: string) => {
+    const token = await getToken()
+    return axiosInstance
+            .delete(`questions/${questionID}/delete/${reportID}`, { 
+                headers: { 'Authorization': `Bearer ${token}` }})
+            .then(response => console.log(response.data))
+            .catch(error => error)
+}
+
+// 35 - 38 get reported data
+export const getReportedData = async (type: string | undefined) => {
+    const token = await getToken()
+    if(((type === 'user') || (type === undefined))) return axiosInstance
+        .get('reports/users', { headers: { 'Authorization': `Bearer ${token}` }})
+        .then(response => response.data)
+        .catch(error => error)
+
+    if(type === 'comment') return axiosInstance
+        .get('reports/comments', { headers: { 'Authorization': `Bearer ${token}` }})
+        .then(response => response.data)
+        .catch(error => error)
+
+    if(type === 'answer') return axiosInstance
+        .get('reports/answer', { headers: { 'Authorization': `Bearer ${token}` }})
+        .then(response => response.data)
+        .catch(error => error)
+
+    if(type === 'question') return axiosInstance
+        .get('reports/questions', { headers: { 'Authorization': `Bearer ${token}` }})
+        .then(response => response.data)
+        .catch(error => error)
+}
+
+// 34. report user
+export const reportUser = async (userID: string, reportMessage: string | undefined) => {
+    const token = await getToken()
+    return axiosInstance
+            .post(`reports/user/${userID}/create`, { reportMessage }, {
+                headers: { 'Authorization' : `Bearer ${token}` }
+            })
+            .then(response => response.data)
+            .catch(error => error)
+}
+
+// 33. report comment
+export const reportComment = async (commentID: string, reportMessage: string | undefined) => {
+    const token = await getToken()
+    return axiosInstance
+            .post(`reports/comment/${commentID}/create`, { reportMessage }, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => response.data)
+            .catch(error => error)
+}
+
+// 32. report answer
+export const reportAnswer = async (answerID: string, reportMessage: string | undefined) => {
+    const token = await getToken()
+    return axiosInstance
+            .post(`reports/answer/${answerID}/create`, { reportMessage }, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => response.data)
+            .catch(error => error)
+}
+
+// 31. report question
+export const reportQuestion = async (questionID: string, reportMessage: string | undefined) => {
+    const token = await getToken()
+    return axiosInstance
+            .post(`reports/${questionID}/create`, { reportMessage }, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => console.log(response.data))
+            .catch(error => error)
+}
+
+// 30. delete user
 export const deleteUser = async (userID: string) => {
     const token = await getToken()
     return axiosInstance
@@ -40,7 +118,7 @@ export const deleteUser = async (userID: string) => {
         .catch(error => error)
 }
 
-// get all users for admin page
+// 28 - 29. get all users for admin page
 export const getAllUser = async (searchValue: string | null = null, type: string | undefined) => {
     const token = await getToken()
     return type === 'all' ?
@@ -53,15 +131,15 @@ export const getAllUser = async (searchValue: string | null = null, type: string
             .catch(error => error) :
         axiosInstance
             .get(`/users${searchValue ?
-                searchValue.includes('@gmail.com') && '?email=' + searchValue ||
-                searchValue && '?username=' + searchValue
+                (searchValue.includes('@gmail.com') && '?email=' + searchValue) ||
+                (searchValue && '?username=' + searchValue)
                 : ''
                 }`)
             .then(response => response.data)
             .catch(error => error)
 }
 
-// delete category
+// 27. delete category
 export const deleteCategory = async (categoryID: string) => {
     const token = await getToken()
     return axiosInstance
@@ -70,7 +148,7 @@ export const deleteCategory = async (categoryID: string) => {
         .catch(error => error)
 }
 
-// create category
+// 26. create category
 export const createCategory = async (categoryName: string | undefined) => {
     const token = await getToken()
     return axiosInstance
@@ -81,7 +159,7 @@ export const createCategory = async (categoryName: string | undefined) => {
         .catch(error => error)
 }
 
-// get all category
+// 24 -25. get all category
 export const getAllCategory = async (type: string) => {
     const token = await getToken()
     return type === 'moderator' ?
@@ -95,7 +173,7 @@ export const getAllCategory = async (type: string) => {
             .catch(error => error)
 }
 
-// create tag
+// 23. create tag
 export const createTag = async (tagName: string) => {
     const token = await getToken()
     return axiosInstance
@@ -104,7 +182,7 @@ export const createTag = async (tagName: string) => {
         .catch(error => error)
 }
 
-// get all tags moderator and user
+// 21 - 22. get all tags moderator and user
 export const getAllTags = async (type: string | undefined) => {
     const token = await getToken()
     return type === "moderator" ?
@@ -118,7 +196,7 @@ export const getAllTags = async (type: string | undefined) => {
             .catch(error => error)
 }
 
-// delete tag
+// 20. delete tag
 export const deleteTag = async (tagID: string | undefined) => {
     const token = await getToken()
     return axiosInstance
@@ -127,7 +205,7 @@ export const deleteTag = async (tagID: string | undefined) => {
         .catch(error => error)
 }
 
-// edit answer
+// 19. edit answer
 export const editAnswer = async (answerID: string | undefined, answerText: string | undefined) => {
     const token = await getToken()
     return axiosInstance
@@ -138,7 +216,7 @@ export const editAnswer = async (answerID: string | undefined, answerText: strin
         .catch(error => error)
 }
 
-// get one answer
+// 18. get one answer
 export const getOneAnswer = async (answerID: string | undefined) => {
     const token = await getToken()
     return axiosInstance
@@ -147,7 +225,7 @@ export const getOneAnswer = async (answerID: string | undefined) => {
         .catch(error => error)
 }
 
-// get all answer bases on user
+// 17. get all answer bases on user
 export const getAllAnswerBasesUser = async (userID: string) => {
     const token = await getToken()
     return axiosInstance
@@ -156,7 +234,7 @@ export const getAllAnswerBasesUser = async (userID: string) => {
         .catch(error => error)
 }
 
-// create comment for answer
+// 16. create comment for answer
 export const createCommentForAnswer = async (answerID: string, commentText: string | undefined) => {
     const token = await getToken()
     return axiosInstance
@@ -167,14 +245,14 @@ export const createCommentForAnswer = async (answerID: string, commentText: stri
         .catch(error => error)
 }
 
-// get all comment for answer
+// 15. get all comment for answer
 export const getAllAnswerComment = async (answerID: string) =>
     axiosInstance
         .get(`comments/answer/${answerID}`)
         .then(response => response.data)
         .catch(error => error)
 
-// create comment for question
+// 14. create comment for question
 export const createCommentForQuestion = async (questionID: string | undefined, commentText: string | undefined) => {
     const token = await getToken()
     return axiosInstance
@@ -185,21 +263,21 @@ export const createCommentForQuestion = async (questionID: string | undefined, c
         .catch(error => error)
 }
 
-// get all comment for question
+// 13. get all comment for question
 export const getAllQuestionComments = (questionID: string) =>
     axiosInstance
         .get(`comments/question/${questionID}`)
         .then(response => response.data)
         .catch(error => error)
 
-// get all answer based on question 
+// 12. get all answer based on question 
 export const getAllAnswerBasesQuestion = async (questionID: string) =>
     axiosInstance
         .get(`questions/${questionID}/answer`)
         .then(response => response.data)
         .catch(error => error)
 
-// create answer 
+// 11. create answer 
 export const createAnswer = async (questionID: string, answerText: string) => {
     const token = await getToken()
     return axiosInstance
@@ -208,7 +286,7 @@ export const createAnswer = async (questionID: string, answerText: string) => {
         .catch(error => error)
 }
 
-// get all answers for admin
+// 10. get all answers for admin
 export const getAllAnswerForAdmin = async () => {
     const token = await getToken()
     return axiosInstance
@@ -217,7 +295,7 @@ export const getAllAnswerForAdmin = async () => {
         .catch(error => error)
 }
 
-// get all questions for admin
+// 9. get all questions for admin
 export const getAllQuestionsForAdmin = async () => {
     const token = await getToken()
     return axiosInstance
@@ -226,28 +304,28 @@ export const getAllQuestionsForAdmin = async () => {
         .catch(error => error)
 }
 
-// get one question from user
+// 8. get one question from user
 export const getQuestionByUser = (userID: string) =>
     axiosInstance
         .get(`questions/${userID}/user`)
         .then(response => response.data)
         .catch(error => error)
 
-// get one user
+// 7. get one user
 export const getOneUser = (userID: string) =>
     axiosInstance
         .get(`/users/${userID}`)
         .then(response => response.data)
         .catch(error => error)
 
-// get all questions
+// 6. get all questions
 export const getAllQuestions = () =>
     axiosInstance
         .get(`/questions`)
         .then(response => response.data)
         .catch(error => error)
 
-// edit question
+// 5. edit question
 export const updateQuestion = async (questionID: string | undefined, questionText: string, category: string, tag: string) => {
     const token = await getToken()
     return axiosInstance
@@ -258,28 +336,28 @@ export const updateQuestion = async (questionID: string | undefined, questionTex
         .catch(error => error)
 }
 
-// get one tag
+// 4. get one tag
 export const getSatuTingkatPendidikan = (tagID: string) =>
     axiosInstance
         .get(`tags/${tagID}`)
         .then(response => response.data)
         .catch(error => error)
 
-// get one category
+// 3. get one category
 export const getSatuMapel = (mapelID: string) =>
     axiosInstance
         .get(`/category/${mapelID}`)
         .then(response => response.data)
         .catch(error => error)
 
-// get one question
+// 2. get one question
 export const getOneQuestion = (questionID: string) =>
     axiosInstance
         .get(`/questions/${questionID}`)
         .then(response => response.data)
         .catch(error => error)
 
-// create question
+// 1. create question
 export const postQuestion = async (questionText: string, categoryID: string, tagID: string) => {
     const token = await getToken()
     return axiosInstance

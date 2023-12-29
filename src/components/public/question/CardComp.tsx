@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { ReportComp } from "../report/ReportComp";
 
-export function CardComp({questionText, mapel, questionID}: {questionText: string, mapel: string, questionID: string}) {
-    
+export function CardComp({ questionText, mapel, questionID }: { questionText: string, mapel: string, questionID: string }) {
+    const [isReportPopupOpen, setReportPopupOpen] = useState(false);
+
     return (
         <div className="flex flex-col h-max bg-white rounded-lg mb-4">
             <div className="flex h-max ms-2 mt-2 gap-2">
@@ -16,7 +19,7 @@ export function CardComp({questionText, mapel, questionID}: {questionText: strin
                 }
             </NavLink>
             <div className="self-end me-2 mb-2 flex gap-2">
-                <button className="self-center">
+                <button onClick={() => setReportPopupOpen(true)} className="self-center">
                     <svg width="20px" height="20px" viewBox="-6.5 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
                         <title>menu_option [#1374]</title>
                         <desc>Created with Sketch.</desc>
@@ -34,6 +37,14 @@ export function CardComp({questionText, mapel, questionID}: {questionText: strin
                 </button>
                 <NavLink to={`/create/answer/${questionID}`} className="bg-slate-800 rounded-lg w-max p-2 text-white">+ Jawab</NavLink>
             </div>
+
+            {isReportPopupOpen && (
+                <ReportComp
+                    type="question"
+                    id={questionID}
+                    setReportPopupOpen={setReportPopupOpen}
+                />
+            )}
         </div>
     )
 }

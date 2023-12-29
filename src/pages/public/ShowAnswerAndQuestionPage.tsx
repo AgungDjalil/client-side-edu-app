@@ -4,6 +4,7 @@ import { createCommentForQuestion, getAllAnswerBasesQuestion, getAllQuestionComm
 import { LoadingComp } from "../../components/LoadingComp"
 import { CommentComp } from "../../components/public/comment/CommentComp"
 import { AnswerComp } from "../../components/public/answer/AnswersComp"
+import { ReportComp } from "../../components/public/report/ReportComp"
 
 export function ShowAnswerAndQuestionPage() {
     const { questionID } = useParams()
@@ -13,6 +14,7 @@ export function ShowAnswerAndQuestionPage() {
     const [questionComment, setquestionComment] = useState<[]>()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(true)
+    const [isReportPopupOpen, setIsReportPopupOpen] = useState(false)
 
     const handleSubmitCommentQuestion = async (ev: any) => {
         const result = await createCommentForQuestion(questionID, comment)
@@ -51,7 +53,7 @@ export function ShowAnswerAndQuestionPage() {
                     }
                 </div>
                 <div className="self-end me-2 mb-2 flex gap-2">
-                    <button className="self-center">
+                    <button onClick={() => setIsReportPopupOpen(true)} className="self-center">
                         <svg width="20px" height="20px" viewBox="-6.5 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
                             <title>menu_option [#1374]</title>
                             <desc>Created with Sketch.</desc>
@@ -69,12 +71,20 @@ export function ShowAnswerAndQuestionPage() {
                     </button>
                     <NavLink to={`/create/answer/${questionID}`} className="bg-slate-800 rounded-lg w-max p-2 text-white">+ Jawab</NavLink>
                 </div>
+                {isReportPopupOpen &&
+                    <ReportComp
+                        id={question.questionID}
+                        setReportPopupOpen={setIsReportPopupOpen}
+                        type="question"
+                    />
+                }
                 <div className="border-t-2 border-gray-500 mx-6 my-4" />
 
                 {
                     questionComment?.length ?
-                        questionComment?.map(({commentText, userID}: any) => (
+                        questionComment?.map(({commentID, commentText, userID}: any) => (
                             <CommentComp 
+                                commentID={commentID}
                                 commentText={commentText}
                                 userID={userID}
                             />

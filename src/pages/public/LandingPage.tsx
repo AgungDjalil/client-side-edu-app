@@ -66,10 +66,10 @@ export function LandingPage() {
                             </svg>
                         </button>
                         <div id="scrollContainer" className="flex overflow-x-auto hide-scrollbar-crhome hide-scrollbar-ms">
-                            <div className="p-4 mx-6 whitespace-nowrap">B. Indonesia</div>
+                            <div className="p-4 mx-6 whitespace-nowrap opacity-40">B. Indonesia</div>
                             <div className="p-4 mx-6 whitespace-nowrap">Fisika</div>
                             <div className="p-4 mx-6 whitespace-nowrap">Matematika</div>
-                            <div className="p-4 mx-6 whitespace-nowrap">B Inggris</div>
+                            <div className="p-4 mx-6 whitespace-nowrap opacity-40">B Inggris</div>
                             <div className="p-4 mx-6 whitespace-nowrap">Agama</div>
                             <div className="p-4 mx-6 whitespace-nowrap">Astronomi</div>
                             <div className="p-4 mx-6 whitespace-nowrap">PPKN</div>
