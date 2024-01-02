@@ -30,6 +30,7 @@ export function LoginPage() {
         }
 
         if (result.error) {
+            console.log(result)
             setIsLoading(false)
             setErrorMessage(result.message)
         }

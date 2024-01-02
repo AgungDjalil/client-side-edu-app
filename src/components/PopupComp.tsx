@@ -25,9 +25,6 @@ export function PopupComp({ ID, type }: any) {
     return (
         <td className="px-6 py-4 flex">
             <div className="hidden"></div>
-            <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                suspend
-            </button>
             <div className="relative ms-2">
                 <button onClick={() => setPopupOpen(true)} className="bg-red-500 text-white p-2 rounded">
                     Delete

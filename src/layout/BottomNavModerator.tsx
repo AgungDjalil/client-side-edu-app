@@ -14,7 +14,7 @@ export function BottomNavModerator() {
         <>
             <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200">
                 <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
-                    <NavLink to={""} className="inline-flex flex-col items-center justify-center px-5 group">
+                    <NavLink to={"answer"} className="inline-flex flex-col items-center justify-center px-5 group">
                         <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490.001 490.001"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <polygon points="115.167,185 177.433,185 145.295,114.698 "></polygon> <path d="M450,0h-410c-22.056,0-40,17.944-40,40v280c0,22.056,17.944,40,40,40h235v120c0,4.118,2.524,7.814,6.358,9.314 c1.184,0.463,2.417,0.687,3.639,0.687c2.738,0,5.42-1.126,7.35-3.218L409.38,360H450c22.056,0,40-17.944,40-40V40 C490,17.944,472.057,0,450,0z M350,115h60v20h-60V115z M255.001,115h80v20h-80V115z M215.907,269.158L186.576,205h-79.982 l-27.402,63.939l-18.383-7.878l75-175c1.559-3.637,5.115-6.013,9.072-6.06c3.981-0.027,7.569,2.243,9.214,5.842l80,175 L215.907,269.158z M330,235h-75v-20h75V235z M435,185h-180v-20h180V185z"></path> </g> </g> </g> </g></svg>
                         <span className="text-sm text-gray-500 group-hover:text-blue-600">Answer</span>
                     </NavLink>

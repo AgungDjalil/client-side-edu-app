@@ -107,13 +107,14 @@ export function ShowAnswerAndQuestionPage() {
 
             {
                 answer.length ?
-                answer.map(({ answerID, answerText, userID }: any) => (
+                answer.map(({ isVerified, answerID, answerText, userID }: any) => (
                     <AnswerComp 
                         key={answerID}
                         answerID={answerID}
                         answerText={answerText}
                         userID={userID}
                         questionID={questionID}
+                        isVerified={isVerified}
                     />
                 )) : ''
             }

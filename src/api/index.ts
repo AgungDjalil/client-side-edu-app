@@ -9,6 +9,26 @@ const axiosInstance = axios.create({
     baseURL: `${process.env.REACT_APP_API_URL}/api`,
 })
 
+// 43. verify answer
+export const verifyAnswer = async (answerID: string) => {
+    const token = await getToken()
+    return axiosInstance
+            .post(`verifier/${answerID}/verify`, {}, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => response.data)
+            .catch(error => error)
+}
+
+// 42. get all unverified answers
+export const getAllUnverifiedAnswer = async () => {
+    const token = await getToken()
+    return axiosInstance
+            .get('verifier/answer', { headers: { 'Authorization': `Bearer ${token}` }})
+            .then(response => response.data)
+            .catch(error => error)
+}
+
 // 41. delete comment
 export const deleteComment = async (commentID: string, reportID: string) => {
     const token = await getToken()

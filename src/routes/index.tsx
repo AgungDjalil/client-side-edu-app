@@ -21,6 +21,7 @@ import { ShowAnswer } from "../pages/public/answer/ShowAnswer";
 import { EditAnswerPage } from "../pages/public/answer/EditAnswerPage";
 import { Tag } from "../pages/moderator/tag/Index";
 import { CategoryPage } from "../pages/moderator/category";
+import { AnswerPageModerator } from "../pages/moderator/answer/Index";
 
 export const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
                     {
                         path: 'category',
                         element: <CategoryPage />
+                    },
+                    {
+                        path: 'answer',
+                        element: <AnswerPageModerator />
                     }
                 ]
             },
