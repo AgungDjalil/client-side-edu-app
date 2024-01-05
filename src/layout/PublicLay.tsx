@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { NavbarComp } from "../components/public/NavbarComp";
 
 export function PublicLay() {
@@ -35,7 +35,7 @@ export function PublicLay() {
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase ">Help center</h2>
                             <ul className="text-gray-500 font-medium">
                                 <li className="mb-4">
-                                    <a href="#" className="hover:underline">Discord Server</a>
+                                    <NavLink to={"https://discord.com/invite/YpJHTMQe"} className="hover:underline">Discord Server</NavLink>
                                 </li>
                                 <li className="mb-4">
                                     <a href="#" className="hover:underline">Twitter</a>
